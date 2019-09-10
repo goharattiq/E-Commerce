@@ -6,7 +6,7 @@ const ShopList=(props)=> {
       <div className="card-group">
        {props.collection.items.filter((item,index)=>index<4)
        .map((item)=>{
-        return (<ShopItem key={item.key} item={item}/>)
+        return (<ShopItem key={item.id} item={item}/>)
        })}
        </div>
   )

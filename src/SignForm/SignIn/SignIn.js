@@ -41,7 +41,7 @@ class SignIn extends Component {
             <InputComp name="email" type="email" label="Email" value={this.state.email} handleChange={this.handleChange} />
             <InputComp name="password" type="password" label="Password" value={this.state.password} handleChange={this.handleChange} />
             <ButtonComp type='submit'> Sign In </ButtonComp>
-            <ButtonComp signInWithGoogle={signInWithGoogle} isGoogle>
+            <ButtonComp onClick={signInWithGoogle} isGoogle>
               Sign in with Google
             </ButtonComp>
         </form>

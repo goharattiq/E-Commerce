@@ -16,10 +16,10 @@ class Shop extends Component {
       <div>
         {collections.map((collection)=>{
            return (
-               <div className="mt-5">
+               <div className="mt-5" key={collection.id}>
                    <h4 className="ml-3">{collection.title}</h4>
-           <ShopList collection={collection}/>
-           </div>)  
+                   <ShopList collection={collection}/>
+               </div>)  
         })}
       </div>
     )
