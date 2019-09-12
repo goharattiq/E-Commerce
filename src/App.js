@@ -3,13 +3,11 @@ import {Switch,Route,Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
 
-import MenuList from './HomePage/MenuList';
+import Home from './HomePage/Home';
 import Shop from './ShopPage/Shop';
 import Header from './Header/Header'
 import SignForm from './SignForm/SignForm';
 import CheckOut from './checkout/CheckOut';
-
-import './App.css';
 
 import {auth,createUserProfileDocument} from './Firebase/firebase';
 import {setCurrentUser} from './redux/user/user-actions';
@@ -42,8 +40,8 @@ class App extends Component  {
     <div>
       <Header/>
       <Switch>
-        <Route exact path="/" component={MenuList}/>
-        <Route exact path="/shop" component={Shop}/>
+        <Route exact path="/" component={Home}/>
+        <Route path="/shop" component={Shop}/>
         <Route exact path="/checkout" component={CheckOut}/>
         <Route exact path="/signin" render={()=>this.props.currentUser?(<Redirect to="/"/>):(<SignForm/>)}/>
       </Switch>

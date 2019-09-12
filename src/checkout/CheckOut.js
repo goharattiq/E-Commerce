@@ -5,7 +5,7 @@ import {createStructuredSelector} from 'reselect';
 import CheckoutHeader from './CheckoutHeader';
 import CheckoutItem from './CheckoutItem';
 import {selectCartItems,selectCartTotalPrice} from '../redux/cart/cart-selectors';
-
+import Stripe from '../stripe/Stripe'
 const CheckOut = (props) => {
   return (
     <div className="container mt-5 mr-5">
@@ -24,6 +24,7 @@ const CheckOut = (props) => {
     }
       <hr className="ml-3 horizontal-line"/>
       <h5 className='float-right total-price'>Total Price : ${props.TotalPrice} </h5>
+      <Stripe  price={props.TotalPrice}/>  
     </div>
   )
 }
