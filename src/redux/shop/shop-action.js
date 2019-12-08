@@ -1,6 +1,6 @@
 import {firestore,convertCollectionsSnapshotToMap} from '../../Firebase/firebase';
 
-export const fetchCollectionStart = (collections)=>({
+export const fetchCollectionStart = ()=>({
     type: 'FETCH_COLLECTIONS_START'
 });
 

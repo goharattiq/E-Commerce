@@ -10,6 +10,7 @@ import {selectIsCollectionFetching} from '../redux/shop/shop-selector';
 const mapStateToProps = createStructuredSelector({
     isLoading : selectIsCollectionFetching
   })
+  
 const CollecionOverviewContaier = compose(connect(mapStateToProps),Spinner)(CollecionOverview);
 
 export default CollecionOverviewContaier;

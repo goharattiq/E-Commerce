@@ -1,63 +1,48 @@
-import React, { Component } from 'react';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import InputComp from '../SignComp/InputComp';
 import ButtonComp from '../SignComp/ButtonComp';
-import {auth,createUserProfileDocument} from '../../Firebase/firebase';
+import {signUpStartAsync} from '../../redux/user/user-thunk';
 
-class SignUp extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            displayName:"",
-            email:"",
-            password:"",
-            confirmPassword:""
-        }
-    }
-    handleSubmit = async event=>{
+const SignUp = (props) => {
+    const [userCredentials,setCredentials]=useState({
+      displayName:"",email:"",password:"",confirmPassword:""
+      })
+    const {displayName,email,password,confirmPassword}=userCredentials;
+    const handleSubmit = async event=>{
         event.preventDefault();
-        const {displayName,email,password,confirmPassword}=this.state;
-        if(password !== confirmPassword){
-          alert("Password don't match");
-          return;
-        }
-
-        try{
-          const {user}=await auth.createUserWithEmailAndPassword(email,password);
-          await createUserProfileDocument(user,{ displayName })
-          this.setState({
-            displayName:"",
-            email:"",
-            password:"",
-            confirmPassword:""
-          });
-        }catch(error){
-            console.log(error.message);
-        }
+        props.signUpStartAsync(userCredentials);
+        setCredentials({
+              displayName:"",
+              email:"",
+              password:"",
+              confirmPassword:""
+            });
     }
 
-    handleChange = event => {
+    const handleChange = event => {
       const { value, name } = event.target;
-  
-      this.setState({ [name]: value });
+      
+      setCredentials({...userCredentials,[name]: value });
     };
 
-    render() {
-      const {displayName,email,password,confirmPassword}=this.state;
       return (
         <div className="col-lg-4 m-5">
           <h4>I donot have an account</h4>
           <p>Sign Up with email and password</p>
-          <form onSubmit={this.handleSubmit}>
-              <InputComp name="displayName" label="Display Name" type="text" value={displayName} handleChange={this.handleChange} />
-              <InputComp name="email" type="email" label="Email" value={email} handleChange={this.handleChange} />
-              <InputComp name="password" type="password" label="Password" value={password} handleChange={this.handleChange} />
-              <InputComp name="confirmPassword" type="password" label="Confirm Password" value={confirmPassword} handleChange={this.handleChange} />
+          <form onSubmit={handleSubmit}>
+              <InputComp name="displayName" label="Display Name" type="text" value={displayName} handleChange={handleChange} />
+              <InputComp name="email" type="email" label="Email" value={email} handleChange={handleChange} />
+              <InputComp name="password" type="password" label="Password" value={password} handleChange={handleChange} />
+              <InputComp name="confirmPassword" type="password" label="Confirm Password" value={confirmPassword} handleChange={handleChange} />
               <ButtonComp type='submit'> Sign Up </ButtonComp>
           </form>
         </div>
       )
-    }
 }
 
+const mapDispatchToProps = dispatch => ({
+  signUpStartAsync : userCredentials => dispatch(signUpStartAsync(userCredentials))
+});
 
-export default SignUp;
+export default connect(null,mapDispatchToProps)(SignUp);
